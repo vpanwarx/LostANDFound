@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel</title>
+</head>
+
+<body>
+
+<h2>👑 Admin Dashboard</h2>
+
+{% for item in items %}
+
+<div style="border:1px solid black; padding:10px; margin:10px">
+
+<h3>{{ item.title }}</h3>
+<p>Status: {{ item.status }}</p>
+
+<h4>Claims:</h4>
+
+{% if item.claim_requests %}
+    {% for c in item.claim_requests %}
+        <p>{{ c.name }} → {{ c.message }}</p>
+    {% endfor %}
+{% else %}
+    <p>No claims</p>
+{% endif %}
+
+<a href="/approve/{{ item._id }}">Approve</a>
+
+</div>
+
+{% endfor %}
+
+</body>
+</html>

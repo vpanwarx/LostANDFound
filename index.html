@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lost & Found</title>
+</head>
+
+<body>
+
+<h1>📦 Lost & Found System</h1>
+
+<!-- Navigation -->
+<a href="/">All</a> |
+<a href="/lost_items">🔴 Lost</a> |
+<a href="/found_items">🟢 Found</a> |
+<a href="/report_lost">Report Lost</a> |
+<a href="/report_found">Report Found</a> |
+<a href="/admin">Admin</a>
+
+<hr>
+
+<!-- Search -->
+<form method="POST" action="/search">
+    <input type="text" name="query" placeholder="Search items">
+    <button type="submit">Search</button>
+</form>
+
+<hr>
+
+{% if items|length == 0 %}
+<p>No items found</p>
+{% endif %}
+
+{% for item in items %}
+
+<div style="border:1px solid black; margin:10px; padding:10px">
+
+<h3>{{ item.title }}</h3>
+<p>{{ item.description }}</p>
+<p>Location: {{ item.location }}</p>
+<p>Status: {{ item.status }}</p>
+
+{% if item.image %}
+<img src="/uploads/{{item.image}}" width="150">
+{% endif %}
+
+{% if not item.claimed %}
+<a href="/claim/{{ item._id }}">Claim Item</a>
+{% else %}
+<p>✅ Claimed</p>
+{% endif %}
+
+</div>
+
+{% endfor %}
+
+</body>
+</html>
